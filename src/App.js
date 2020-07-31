@@ -1,29 +1,29 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-import HomePage from './pages/homepage/homepage.component'
-import ShopPage from './pages/shop/shop.component'
-import Header from './components/header/header.component'
-import SignInSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component'
-import { auth, createUserProfileDocument } from './firebase/firebase.utils'
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import HomePage from './pages/homepage/homepage.component';
+import ShopPage from './pages/shop/shop.component';
+import Header from './components/header/header.component';
+import SignInSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
-import './App.css'
+import './App.css';
 
 class App extends React.Component {
   constructor() {
-    super()
+    super();
 
     this.state = {
       currentUser: null,
-    }
+    };
   }
 
-  unsubscribeFromAuth = null
+  unsubscribeFromAuth = null;
 
   // Google Auth allows for persistent sign in
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)
+        const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapshot) => {
           this.setState(
@@ -34,16 +34,16 @@ class App extends React.Component {
               },
             },
             () => console.log(this.state)
-          )
-        })
+          );
+        });
       } else {
-        this.setState({ currentUser: userAuth })
+        this.setState({ currentUser: userAuth });
       }
-    })
+    });
   }
 
   componentWillUnmount() {
-    this.unsubscribeFromAuth()
+    this.unsubscribeFromAuth();
   }
 
   render() {
@@ -56,8 +56,8 @@ class App extends React.Component {
           <Route path="/signin" component={SignInSignUpPage} />
         </Switch>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
