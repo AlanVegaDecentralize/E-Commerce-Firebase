@@ -10,6 +10,11 @@ export const selectCartItems = createSelector(
   (cart) => cart.cartItems
 );
 
+export const selectCartHidden = createSelector(
+  [selectCart],
+  (cart) => cart.hidden
+);
+
 // Uses cart item selector to act on and return cart item count
 export const selectCartItemsCount = createSelector(
   [selectCartItems],
