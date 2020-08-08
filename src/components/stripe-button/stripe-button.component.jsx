@@ -1,5 +1,4 @@
 import React from 'react';
-import { ReactComponent as Logo } from '../../assets/crown.svg';
 import StripeCheckout from 'react-stripe-checkout';
 
 const StripeCheckoutButton = ({ price }) => {
