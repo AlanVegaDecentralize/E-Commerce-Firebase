@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReactComponent as Logo } from '../../assets/crown.svg';
 import StripeCheckout from 'react-stripe-checkout';
 
 const StripeCheckoutButton = ({ price }) => {
@@ -17,8 +18,7 @@ const StripeCheckoutButton = ({ price }) => {
       name="Tgthr Wear"
       billingAddress
       shippingAddress
-      image="https://sendeyo.com/up/d/f3eb2117da"
-      description={`Your total is ${price}`}
+      description={`Your total is $${price}`}
       amount={priceForStripe}
       panelLabel="Pay Now"
       token={onToken}
