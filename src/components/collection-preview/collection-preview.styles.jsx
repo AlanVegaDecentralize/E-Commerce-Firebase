@@ -10,6 +10,7 @@ export const TitleContainer = styled.h1`
   font-size: 28px;
   margin-bottom: 25px;
   cursor: pointer;
+  width: 80px;
 
   &:hover {
     color: grey;
