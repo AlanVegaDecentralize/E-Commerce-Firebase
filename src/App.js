@@ -9,12 +9,17 @@ import ShopPage from './pages/shop/shop.component';
 import SignInSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 // Firebase
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import {
+  auth,
+  createUserProfileDocument,
+  addCollectionAndDocuments,
+} from './firebase/firebase.utils';
 // Redux
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
+import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
 
 import './App.css';
 
@@ -23,7 +28,7 @@ class App extends React.Component {
 
   // Google Auth allows for persistent sign in
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, collectionsArray } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -35,9 +40,9 @@ class App extends React.Component {
             ...snapshot.data(),
           });
         });
-      } else {
-        setCurrentUser(userAuth);
       }
+
+      setCurrentUser(userAuth);
     });
   }
 
@@ -72,6 +77,7 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionsForPreview,
 });
 
 // Dispatch calls the action to change redux store

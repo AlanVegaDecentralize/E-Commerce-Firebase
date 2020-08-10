@@ -23,6 +23,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   try {
     const userRef = await firestore.doc(`users/${userAuth.uid}`);
+
     const snapShot = await userRef.get();
 
     if (!snapShot.exists) {
@@ -30,6 +31,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
       const createdOn = new Date();
 
       try {
+        // Can only make and individual set call at a time
         await userRef.set({
           displayName,
           email,
@@ -45,6 +47,37 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   } catch (error) {
     console.log('Error creating user profile document:', error.message);
   }
+};
+
+// Data upload
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+  const batch = firestore.batch();
+
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+  // Fires batch call
+  return await batch.commit();
+};
+
+export const converCollectionSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+
+  console.log(transformedCollection);
 };
 
 // Google provider for Auth Pop-Up
