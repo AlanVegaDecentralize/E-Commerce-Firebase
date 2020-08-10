@@ -10,14 +10,14 @@ export const selectCollections = createSelector(
 
 export const selectCollectionsForPreview = createSelector(
   [selectCollections],
-  (collections) => Object.keys(collections).map((key) => collections[key])
+  (collections) =>
+    collections ? Object.keys(collections).map((key) => collections[key]) : []
 );
 
 // Enters integer value of COLLECTION_ID_MAP outputs corresponding collection
 // <memoize> checks if (collectionUrlParam) has changed, if not returns same value as the previous run
 export const selectCollection = memoize((collectionUrlParam) =>
-  createSelector(
-    [selectCollections],
-    (collection) => collection[collectionUrlParam]
+  createSelector([selectCollections], (collections) =>
+    collections ? collections[collectionUrlParam] : null
   )
 );
