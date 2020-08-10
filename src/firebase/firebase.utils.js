@@ -65,7 +65,7 @@ export const addCollectionAndDocuments = async (
   return await batch.commit();
 };
 
-export const converCollectionSnapshotToMap = (collections) => {
+export const convertCollectionSnapshotToMap = (collections) => {
   const transformedCollection = collections.docs.map((doc) => {
     const { title, items } = doc.data();
 
@@ -77,7 +77,10 @@ export const converCollectionSnapshotToMap = (collections) => {
     };
   });
 
-  console.log(transformedCollection);
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
 };
 
 // Google provider for Auth Pop-Up
