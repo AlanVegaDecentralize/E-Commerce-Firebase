@@ -12,7 +12,7 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import {
   auth,
   createUserProfileDocument,
-  addCollectionAndDocuments,
+  // addCollectionAndDocuments,
 } from './firebase/firebase.utils';
 // Redux
 import { connect } from 'react-redux';
@@ -28,7 +28,7 @@ class App extends React.Component {
 
   // Google Auth allows for persistent sign in
   componentDidMount() {
-    const { setCurrentUser, collectionsArray } = this.props;
+    const { setCurrentUser } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
