@@ -6,7 +6,7 @@ import Header from './components/header/header.component';
 // Page components
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
-import SignInSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component';
+import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 // Firebase
 import {
@@ -65,7 +65,7 @@ class App extends React.Component {
               this.props.currentUser ? (
                 <Redirect to="/" />
               ) : (
-                <SignInSignUpPage />
+                <SignInAndSignUpPage />
               )
             }
           />
