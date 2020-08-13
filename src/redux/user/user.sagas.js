@@ -13,9 +13,12 @@ import {
   signInFailure,
   signOutSuccess,
   signOutFailure,
+  signUpSuccess,
+  signUpFailure,
 } from './user.actions';
 
 ///////////////////////////////////////--UTIL--////////////////////////////////////////
+
 export function* getSnapshotFromUserAuth(userAuth) {
   try {
     const userRef = yield call(createUserProfileDocument, userAuth);
@@ -46,6 +49,7 @@ export function* onCheckUserSession() {
 }
 
 ///////////////////////////////////////--GOOGLE--////////////////////////////////////////
+
 export function* signInWithGoogle() {
   try {
     const { user } = yield auth.signInWithPopup(googleProvider);
@@ -60,6 +64,7 @@ export function* onGoogleSignInStart() {
 }
 
 ///////////////////////////////////////--EMAIL--/////////////////////////////////////////
+
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
@@ -71,7 +76,9 @@ export function* signInWithEmail({ payload: { email, password } }) {
 export function* onEmailSignInStart() {
   yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
+
 //////////////////////////////////////--SIGN-OUT--///////////////////////////////////////
+
 export function* signOut() {
   try {
     yield auth.signOut();
@@ -85,6 +92,30 @@ export function* onSignOutStart() {
   yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
 }
 
+//////////////////////////////////////--SIGN-UP--///////////////////////////////////////
+
+export function* signUp({
+  payload: { displayName, email, password, confirmPassword },
+}) {
+  if (password !== confirmPassword) {
+    alert('Passwords do not match!');
+    return;
+  }
+
+  try {
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+    yield getSnapshotFromUserAuth(user);
+    // yield createUserProfileDocument(user, { displayName });
+    yield put(signUpSuccess());
+  } catch (error) {
+    yield put(signUpFailure(error));
+  }
+}
+
+export function* onSignUpStart() {
+  yield takeLatest(UserActionTypes.SIGN_UP_START, signUp);
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////
 export function* userSagas() {
   yield all([
@@ -92,5 +123,6 @@ export function* userSagas() {
     call(onEmailSignInStart),
     call(onCheckUserSession),
     call(onSignOutStart),
+    call(onSignUpStart),
   ]);
 }
