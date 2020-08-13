@@ -15,10 +15,11 @@ import {
   // addCollectionAndDocuments,
 } from './firebase/firebase.utils';
 // Redux
-import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/user/user.actions';
-import { selectCurrentUser } from './redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+// Redux config
+import { checkUserSession } from './redux/user/user.actions';
+import { selectCurrentUser } from './redux/user/user.selectors';
 import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
 
 import './App.css';
@@ -28,26 +29,8 @@ class App extends React.Component {
 
   // Google Auth allows for persistent sign in
   componentDidMount() {
-    const { setCurrentUser } = this.props;
-
-    //   this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-    //     if (userAuth) {
-    //       const userRef = await createUserProfileDocument(userAuth);
-
-    //       userRef.onSnapshot((snapshot) => {
-    //         setCurrentUser({
-    //           id: snapshot.id,
-    //           ...snapshot.data(),
-    //         });
-    //       });
-    //     }
-
-    //     setCurrentUser(userAuth);
-    //   });
-    // }
-
-    // componentWillUnmount() {
-    //   this.unsubscribeFromAuth();
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
 
   render() {
@@ -77,12 +60,12 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  collectionsArray: selectCollectionsForPreview,
 });
 
 // Dispatch calls the action to change redux store
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  // setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  checkUserSession: () => [dispatch(checkUserSession())],
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
