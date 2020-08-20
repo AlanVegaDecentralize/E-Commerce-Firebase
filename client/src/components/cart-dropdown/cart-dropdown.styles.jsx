@@ -3,15 +3,15 @@ import CustomButton from '../custom-button/custom-button.component';
 
 export const CartDropdownContainer = styled.div`
   position: absolute;
-  width: 260px;
+  width: 240px;
   height: 340px;
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding: 20px;
   border: 1px solid black;
   background-color: white;
-  top: 105px;
-  right: 80px;
+  top: 90px;
+  right: 40px;
   z-index: 5;
 `;
 
@@ -28,5 +28,5 @@ export const CartItemsContainer = styled.div`
   height: 240px;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  overflow: scroll;
 `;

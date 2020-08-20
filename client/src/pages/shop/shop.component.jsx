@@ -13,7 +13,7 @@ const ShopPage = ({ fetchCollectionsStart, match }) => {
   }, [fetchCollectionsStart]);
 
   return (
-    <div className="shop-page">
+    <div className='shop-page'>
       <Route
         exact
         path={`${match.path}`}
@@ -27,8 +27,11 @@ const ShopPage = ({ fetchCollectionsStart, match }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 });
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+export default connect(
+  null,
+  mapDispatchToProps
+)(ShopPage);

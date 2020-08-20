@@ -16,26 +16,26 @@ import { connect } from 'react-redux';
 import { checkUserSession } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 
-import './App.css';
+import { GlobalStyle } from './global.styles';
 
 const App = ({ checkUserSession, currentUser }) => {
-  // Google Auth allows for persistent sign in
   useEffect(() => {
     checkUserSession();
   }, [checkUserSession]);
 
   return (
     <div>
+      <GlobalStyle />
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
-        <Route exact path="/checkout" component={CheckoutPage} />
+        <Route exact path='/' component={HomePage} />
+        <Route path='/shop' component={ShopPage} />
+        <Route exact path='/checkout' component={CheckoutPage} />
         <Route
           exact
-          path="/signin"
+          path='/signin'
           render={() =>
-            currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+            currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />
           }
         />
       </Switch>
@@ -47,9 +47,11 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-// Dispatch calls the action to change redux store
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   checkUserSession: () => dispatch(checkUserSession())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
