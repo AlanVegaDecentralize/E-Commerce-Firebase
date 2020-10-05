@@ -3,6 +3,7 @@ import '@firebase/auth';
 import '@firebase/firestore';
 
 const config = {
+  // safe to share
   apiKey: 'AIzaSyB4z5M55-lJRmP_ghopUmjQzg29-6ltvYk',
   authDomain: 'e-commerce-10429.firebaseapp.com',
   databaseURL: 'https://e-commerce-10429.firebaseio.com',
