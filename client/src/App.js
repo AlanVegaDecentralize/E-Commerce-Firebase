@@ -14,6 +14,7 @@ import { checkUserSession } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 // CSS in JS
 import { GlobalStyle } from './global.styles';
+import AppContainer from './components/app-container/app-container.styles';
 // Page components
 const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
 const ShopPage = lazy(() => import('./pages/shop/shop.component'));
@@ -32,24 +33,26 @@ const App = ({ checkUserSession, currentUser }) => {
   // Suspense allows for dynamic imports to be handled as promises
   return (
     <div>
-      <GlobalStyle />
       <Header />
-      <Switch>
-        <ErrorBoundary>
-          <Suspense fallback={<Spinner />}>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/shop" component={ShopPage} />
-            <Route exact path="/checkout" component={CheckoutPage} />
-            <Route
-              exact
-              path="/signin"
-              render={() =>
-                currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
-              }
-            />
-          </Suspense>
-        </ErrorBoundary>
-      </Switch>
+      <AppContainer>
+        <GlobalStyle />
+        <Switch>
+          <ErrorBoundary>
+            <Suspense fallback={<Spinner />}>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/shop" component={ShopPage} />
+              <Route exact path="/checkout" component={CheckoutPage} />
+              <Route
+                exact
+                path="/signin"
+                render={() =>
+                  currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+                }
+              />
+            </Suspense>
+          </ErrorBoundary>
+        </Switch>
+      </AppContainer>
       <Footer />
     </div>
   );
