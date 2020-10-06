@@ -13,13 +13,13 @@ import {
 export const Footer = () => {
   return (
     <FooterContainer>
-      <FooterSecret>Contact me:</FooterSecret>
+      <FooterSecret>Contact me</FooterSecret>
       <IconContainer>
         <IconAnchor
           href={'https://github.com/AlanVegaDecentralize'}
           target={'_blank'}
           referrerPolicy="noreferrer noopener"
-          title={'Connect to my code here!'}
+          title={'Connect to my code!'}
         >
           <CustomGitHUb size={'3em'} />
         </IconAnchor>
@@ -27,7 +27,7 @@ export const Footer = () => {
           href={'https://www.linkedin.com/in/alan-vega/'}
           target={'_blank'}
           referrerPolicy="noreferrer noopener"
-          title={'Connect to my professional profile'}
+          title={'Connect to my professional profile!'}
         >
           <CustomLinkedIn size={'3em'} />
         </IconAnchor>
@@ -35,7 +35,7 @@ export const Footer = () => {
           href={'https://twitter.com/BankzAkuma'}
           target={'_blank'}
           referrerPolicy="noreferrer noopener"
-          title={'Connect to the less professional me :D'}
+          title={'Connect to my less professional profile! :D'}
         >
           <CustomTwitter size={'3em'} />
         </IconAnchor>
