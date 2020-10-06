@@ -12,30 +12,30 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 import {
   HeaderContainer,
-  LogoContainer,
   OptionsContainer,
-  OptionLink
+  OptionLink,
+  SiteTitle
 } from './header.styles';
 
-const Header = ({ currentUser, hidden, signOutStart }) => (
-  <HeaderContainer>
-    <LogoContainer to="/">
-      <Logo className="logo" />
-    </LogoContainer>
-    <OptionsContainer>
-      <OptionLink to="/shop">SHOP</OptionLink>
-      {currentUser ? (
-        <OptionLink as="div" onClick={signOutStart}>
-          SIGN OUT
-        </OptionLink>
-      ) : (
-        <OptionLink to="/signin">SIGN IN</OptionLink>
-      )}
-      <CartIcon />
-    </OptionsContainer>
-    {hidden ? null : <CartDropdown />}
-  </HeaderContainer>
-);
+const Header = ({ currentUser, hidden, signOutStart }) => {
+  return (
+    <HeaderContainer>
+      <SiteTitle to="/">Wave Mart</SiteTitle>
+      <OptionsContainer>
+        <OptionLink to="/shop">SHOP</OptionLink>
+        {currentUser ? (
+          <OptionLink as="div" onClick={signOutStart}>
+            SIGN OUT
+          </OptionLink>
+        ) : (
+          <OptionLink to="/signin">SIGN IN</OptionLink>
+        )}
+        <CartIcon />
+      </OptionsContainer>
+      {hidden ? null : <CartDropdown />}
+    </HeaderContainer>
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,

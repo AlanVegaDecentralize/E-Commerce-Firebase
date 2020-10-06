@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 // Base components
 import Header from './components/header/header.component';
 import Spinner from './components/spinner/spinner.component';
+import Footer from './components/footer/footer.component';
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
 // Redux
 import { createStructuredSelector } from 'reselect';
@@ -28,7 +29,7 @@ const App = ({ checkUserSession, currentUser }) => {
     checkUserSession();
   }, [checkUserSession]);
 
-  // Suspense allows for dynamic imports to be handles as promises
+  // Suspense allows for dynamic imports to be handled as promises
   return (
     <div>
       <GlobalStyle />
@@ -49,6 +50,7 @@ const App = ({ checkUserSession, currentUser }) => {
           </Suspense>
         </ErrorBoundary>
       </Switch>
+      <Footer />
     </div>
   );
 };
