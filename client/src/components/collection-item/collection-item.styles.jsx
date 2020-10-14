@@ -34,6 +34,7 @@ export const AddButton = styled(CustomButton)`
   width: 80%;
   opacity: 0.7;
   position: absolute;
+  align-items: center;
   top: 255px;
   display: none;
   @media screen and (max-width: 800px) {
